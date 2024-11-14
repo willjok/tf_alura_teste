@@ -14,9 +14,17 @@ provider "aws" {
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-0182f373e66f89c85"
-  instance_type = "t2.micro"
+   ami           = "ami-0182f373e66f89c85"
+   instance_type = "t2.micro"
+   key_name = "iac-alura"
+   user_data = <<EOF
+                #!/bin/bash
+            cd "/home/ec2-user"
+	    touch /tmp/teste/.txt	
+            echo "<h1>Feito com Terraform</h1>" > index.html
+                 EOF
+
   tags = {
-    Name = "Primeira_Instancia"
+    Name = "Terceira_Instancia"
   }
 }
